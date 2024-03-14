@@ -1,0 +1,11 @@
+{
+  "contracts": {
+    "eth": {
+      "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419": {
+        "name": "chainlink/oracle-eth",
+        "main": "./0xc/eth/chainlink/oracle-eth/oracle-eth.ts",
+        "contractName": "EACAggregatorProxy"
+      }
+    }
+  }
+}

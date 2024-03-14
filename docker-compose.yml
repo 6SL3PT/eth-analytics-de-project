@@ -58,3 +58,15 @@ services:
             - '5433:5432'
         depends_on:
             - postgres
+
+    0xweb:
+        build:
+            context: ./container/0xweb/
+        command: python /opt/0xweb/fetch_price.py
+        container_name: 0xweb
+        restart: on-failure:5
+        volumes:
+            - ./volumes/0xweb:/opt/0xweb
+        depends_on:
+            - postgres
+            - kafka
