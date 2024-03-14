@@ -1,5 +1,40 @@
 version: '3'
 services:
+    flink-jobmanager:
+        container_name: flink-jobmanager
+        build:
+            context: ./container/flink/
+        command: jobmanager
+        ports:
+            - '8081:8081'
+            - '9249:9249'
+        volumes:
+            - ./volumes/flink:/opt/flink/code
+        environment:
+            - |
+                FLINK_PROPERTIES=
+                jobmanager.rpc.address: jobmanager
+            - TZ=Asia/Bangkok
+
+    flink-taskmanager:
+        container_name: flink-taskmanager
+        build:
+            context: ./container/flink/
+        command: taskmanager
+        ports:
+            - '9250:9249'
+        volumes:
+            - ./volumes/flink:/opt/flink/code
+        scale: 1
+        environment:
+            - |
+                FLINK_PROPERTIES=
+                jobmanager.rpc.address: jobmanager
+                taskmanager.numberOfTaskSlots: 2
+            - TZ=Asia/Bangkok
+        depends_on:
+            - flink-jobmanager
+
     zookeeper:
         image: docker.io/bitnami/zookeeper:3.8
         container_name: zookeeper
