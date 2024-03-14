@@ -70,3 +70,15 @@ services:
         depends_on:
             - postgres
             - kafka
+
+    ethereumetl:
+        build:
+            context: ./container/ethereumetl/
+        command: python /opt/ethereumetl/stream.py
+        container_name: ethereumetl
+        restart: on-failure:5
+        volumes:
+            - ./volumes/ethereumetl:/opt/ethereumetl
+        depends_on:
+            - postgres
+            - kafka
