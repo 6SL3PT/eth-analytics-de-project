@@ -6,3 +6,4 @@ __pycache__/
 .env
 
 *last_synced_block.txt
+volumes/airflow/dags/transactions/service_account/*.json

@@ -94,6 +94,28 @@ services:
         depends_on:
             - postgres
 
+    airflow:
+        build:
+            context: ./container/airflow
+        container_name: airflow
+        restart: on-failure:5
+        environment:
+            - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+            - AIRFLOW__CORE__FERNET_KEY=AnsRXkzo4vgOuE52ftgG83N_RMufcdoMDzJgcTR_3Xw=
+            - AIRFLOW__DATABASE__LOAD_DEFAULT_CONNECTIONS=False
+            - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow
+            - AIRFLOW_CONN_METADATA_DB=postgresql://airflow:airflow@postgres:5432/airflow
+            - AIRFLOW_VAR__METADATA_DB_SCHEMA=airflow
+        ports:
+            - '8088:8080'
+            - '8794:8793'
+        volumes:
+            - ./volumes/airflow/dags:/opt/airflow/dags
+            - ./volumes/airflow/scripts:/opt/airflow/scripts
+            - ./volumes/airflow/logs:/opt/airflow/logs
+        depends_on:
+            - postgres
+
     0xweb:
         build:
             context: ./container/0xweb/
