@@ -1,0 +1,8 @@
+__pycache__/
+
+*.log
+*.csv
+
+.env
+
+*last_synced_block.txt

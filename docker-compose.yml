@@ -1,0 +1,37 @@
+version: '3'
+services:
+    postgres:
+        image: docker.io/bitnami/postgresql:16
+        container_name: postgres
+        hostname: postgres
+        environment:
+            - POSTGRESQL_USERNAME=postgres
+            - POSTGRESQL_PASSWORD=postgres
+            - POSTGRESQL_DATABASE=postgres
+            - POSTGRESQL_OTHER_DATABASES=airflow
+            - POSTGRESQL_REPLICATION_MODE=master
+            - POSTGRESQL_REPLICATION_USER=repl_user
+            - POSTGRESQL_REPLICATION_PASSWORD=repl_password
+            - POSTGRESQL_LOG_CONNECTIONS=true
+        ports:
+            - '5432:5432'
+        volumes:
+            - ./volumes/postgres:/docker-entrypoint-initdb.d
+
+    postgres-slave:
+        image: docker.io/bitnami/postgresql:16
+        container_name: postgres-slave
+        restart: on-failure:5
+        environment:
+            - POSTGRESQL_PASSWORD=postgres
+            - POSTGRESQL_MASTER_HOST=postgres
+            - POSTGRESQL_MASTER_PORT_NUMBER=5432
+            - POSTGRESQL_REPLICATION_MODE=slave
+            - POSTGRESQL_REPLICATION_USER=repl_user
+            - POSTGRESQL_REPLICATION_PASSWORD=repl_password
+            - POSTGRESQL_LOG_CONNECTIONS=true
+            # - POSTGRESQL_PGAUDIT_LOG=READ
+        ports:
+            - '5433:5432'
+        depends_on:
+            - postgres
