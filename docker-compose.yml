@@ -43,6 +43,16 @@ services:
         volumes:
             - ./volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
+    grafana:
+        image: grafana/grafana:10.3.3
+        container_name: grafana
+        ports:
+            - '3000:3000'
+        environment:
+            - GF_SECURITY_ADMIN_PASSWORD=grafana
+        volumes:
+            - ./volumes/grafana/provisioning/:/etc/grafana/provisioning/
+
     zookeeper:
         image: docker.io/bitnami/zookeeper:3.8
         container_name: zookeeper

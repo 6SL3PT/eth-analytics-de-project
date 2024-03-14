@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+    - name: Postgres Slave
+      type: postgres
+      url: postgres-slave:5432
+      user: grafana_reader
+      database: postgres
+      secureJsonData:
+          password: 'grafana'
+      jsonData:
+          sslmode: 'disable'
+          maxOpenConns: 100
+          maxIdleConns: 100
+          maxIdleConnsAuto: true
+          connMaxLifetime: 14400
+          postgresVersion: 1000
+          timescaledb: false
