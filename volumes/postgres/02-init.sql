@@ -42,6 +42,14 @@ CREATE TABLE ethereum.model_input (
 );
 CREATE INDEX idx_ethereum_model_input_ts_brin ON ethereum.model_input USING BRIN (block_timestamp);
 
+-- create table named model_prediction
+CREATE TABLE ethereum.model_prediction (
+    model_prediction_id SERIAL PRIMARY KEY,
+    block_timestamp TIMESTAMPTZ NOT NULL,
+    predict_result DECIMAL(16, 8) NOT NULL
+);
+CREATE INDEX idx_ethereum_model_prediction_ts_brin ON ethereum.model_prediction USING BRIN (block_timestamp);
+
 -- create grafana user with only reading privileges
 CREATE USER grafana_reader WITH PASSWORD 'grafana';
 GRANT CONNECT ON DATABASE postgres TO grafana_reader;

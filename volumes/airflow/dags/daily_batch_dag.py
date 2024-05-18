@@ -39,11 +39,14 @@ with DAG(
         dag=dag
     )
     fetch_model_input = PythonOperator(
-        task_id='process_model_input',
+        task_id='process_model_input_data',
         python_callable=run_process_model_input,
         dag=dag
     )
-    # TODO: 1. load model, fetch model_input from postgres, scale data, and predict
-    #       2. insert result into postgres
+    load_model_and_predict = PythonOperator(
+        task_id='load_model_and_predict',
+        python_callable=run_model_predict,
+        dag=dag
+    )
 
-    fetch_transaction >> postgres_import >> fetch_model_input
+    fetch_transaction >> postgres_import >> fetch_model_input >> load_model_and_predict
