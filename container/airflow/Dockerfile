@@ -1,15 +1,8 @@
-FROM apache/airflow:2.8.1
-
-
-USER root
-
-ARG AIRFLOW_HOME=/opt/airflow
-
-COPY requirements.txt /opt/airflow/
+FROM apache/airflow:2.8.1-python3.11
 
 
 USER airflow
 
-RUN pip install --no-cache-dir apache-airflow==${AIRFLOW_VERSION} -r /opt/airflow/requirements.txt
+COPY requirements.txt /opt/airflow/
 
-ENTRYPOINT [ "/opt/airflow/scripts/entrypoint.sh" ]
+RUN pip install --no-cache-dir apache-airflow==${AIRFLOW_VERSION} -r /opt/airflow/requirements.txt

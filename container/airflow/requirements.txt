@@ -1,2 +1,6 @@
 google-cloud-bigquery
+numpy
 psycopg2-binary
+scikit-learn
+tensorflow==2.15.0
+connexion[swagger-ui]

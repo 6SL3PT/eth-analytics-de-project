@@ -1,4 +1,24 @@
 version: '3'
+x-airflow-common: &airflow-common
+    build:
+        context: ./container/airflow
+    image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.1-python3.11}
+    environment: &airflow-common-env
+        AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+        AIRFLOW__CORE__FERNET_KEY: AnsRXkzo4vgOuE52ftgG83N_RMufcdoMDzJgcTR_3Xw=
+        AIRFLOW__DATABASE__LOAD_DEFAULT_CONNECTIONS: False
+        AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+        AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres:5432/airflow
+        AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+        AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+        AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+    volumes:
+        - ./volumes/airflow/dags:/opt/airflow/dags
+        - ./volumes/airflow/logs:/opt/airflow/logs
+    depends_on:
+        - postgres
+        - redis
+
 services:
     flink-jobmanager:
         container_name: flink-jobmanager
@@ -112,27 +132,51 @@ services:
         depends_on:
             - postgres
 
-    airflow:
-        build:
-            context: ./container/airflow
-        container_name: airflow
-        restart: on-failure:5
-        environment:
-            - AIRFLOW__CORE__EXECUTOR=LocalExecutor
-            - AIRFLOW__CORE__FERNET_KEY=AnsRXkzo4vgOuE52ftgG83N_RMufcdoMDzJgcTR_3Xw=
-            - AIRFLOW__DATABASE__LOAD_DEFAULT_CONNECTIONS=False
-            - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow
-            - AIRFLOW_CONN_METADATA_DB=postgresql://airflow:airflow@postgres:5432/airflow
-            - AIRFLOW_VAR__METADATA_DB_SCHEMA=airflow
+    redis:
+        image: redis:latest
+        container_name: redis
         ports:
-            - '8088:8080'
-            - '8794:8793'
-        volumes:
-            - ./volumes/airflow/dags:/opt/airflow/dags
-            - ./volumes/airflow/scripts:/opt/airflow/scripts
-            - ./volumes/airflow/logs:/opt/airflow/logs
-        depends_on:
-            - postgres
+            - 6379:6379
+        restart: always
+
+    airflow-webserver:
+        <<: *airflow-common
+        container_name: airflow-webserver
+        command: webserver
+        ports:
+            - '8080:8080'
+        restart: always
+
+    airflow-scheduler:
+        <<: *airflow-common
+        container_name: airflow-scheduler
+        command: scheduler
+        restart: always
+
+    airflow-worker:
+        <<: *airflow-common
+        container_name: airflow-worker
+        command: celery worker
+        restart: always
+
+    airflow-init:
+        <<: *airflow-common
+        container_name: airflow-init
+        command: version
+        environment:
+            <<: *airflow-common-env
+            _AIRFLOW_DB_MIGRATE: 'true'
+            _AIRFLOW_WWW_USER_CREATE: 'true'
+            _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+            _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+
+    airflow-flower:
+        <<: *airflow-common
+        container_name: airflow-flower
+        command: celery flower
+        ports:
+            - 5555:5555
+        restart: always
 
     0xweb:
         build:
