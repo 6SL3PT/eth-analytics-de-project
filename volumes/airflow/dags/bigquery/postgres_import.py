@@ -14,7 +14,7 @@ def run_postgres_import():
 
         yesterday = date.today() - timedelta(days=1)
 
-        temp_file = f'/opt/airflow/dags/transactions/temp_{yesterday}.csv'
+        temp_file = f'/opt/airflow/dags/bigquery/temp_tx_{yesterday}.csv'
         assert os.path.exists(temp_file)
 
         logging.info(f'Start import file \'{temp_file}\' to table \'ethereum.transactions\' ...')

@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from transactions.fetch_transaction import run_fetch_transaction
-from transactions.postgres_import import run_postgres_import
+from bigquery.fetch_transaction import run_fetch_transaction
+from bigquery.postgres_import import run_postgres_import
 
 
 default_args = {
@@ -16,11 +16,11 @@ default_args = {
 }
 
 with DAG(
-    'transactions_dag',
+    'bigquery_dag',
     default_args=default_args,
     start_date=datetime.now() + timedelta(days=1),
     schedule_interval='0 0 * * *',
-    description='Fetch daily transactions data from BigQuery public dataset'
+    description='Fetch daily data from BigQuery public dataset'
 ) as dag:
     fetch_transaction = PythonOperator(
         task_id='get_bigquery_eth_tx',

@@ -38,14 +38,14 @@ class BigQuery():
 
             if modified_time >= time.mktime(date.today().timetuple()):
                 logging.info(f'Start fetching transactions of date \'{self.yesterday}\'')
-                self.fetch_yesterday_data(client)
+                self.fetch_yesterday_tx_data(client)
                 break
             else:
                 logging.info(
                     f'Modified timestamp not up to date. Sleeping for {self.max_period_second} seconds...')
                 time.sleep(self.max_period_second)
 
-    def fetch_yesterday_data(self, client: Client) -> None:
+    def fetch_yesterday_tx_data(self, client: Client) -> None:
         QUERY = (
             f'''
             WITH MIN_TX AS (
@@ -92,6 +92,6 @@ class BigQuery():
         if result.total_rows is not None and result.total_rows > 0:
             result_df = result.to_dataframe()
             result_df.to_csv(
-                f'/opt/airflow/dags/transactions/temp_{self.yesterday}.csv', index=False, header=False)
+                f'/opt/airflow/dags/bigquery/temp_tx_{self.yesterday}.csv', index=False, header=False)
         else:
             raise QueryError(f'total result from query \'{result.total_rows}\'')
