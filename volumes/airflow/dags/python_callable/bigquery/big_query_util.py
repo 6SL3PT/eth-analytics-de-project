@@ -10,8 +10,8 @@ class QueryError(Exception):
 
 class BigQuery():
 
-    def __init__(self, max_period_second: int):
-        self.max_period_second = max_period_second
+    def __init__(self, wait_time: int):
+        self.wait_time = wait_time
         self.yesterday = date.today() - timedelta(days=1)
 
     def use_service_account(self, key_path: str) -> Client:
@@ -24,9 +24,9 @@ class BigQuery():
 
         return client
 
-    def check_modified_time(self, client: Client) -> None:
+    def check_tx_modified_time(self, client: Client) -> None:
         QUERY = (
-            '''
+            f'''
             SELECT last_modified_time FROM `bigquery-public-data.crypto_ethereum.__TABLES__`
             WHERE table_id = 'transactions'
             '''
@@ -42,8 +42,8 @@ class BigQuery():
                 break
             else:
                 logging.info(
-                    f'Modified timestamp not up to date. Sleeping for {self.max_period_second} seconds...')
-                time.sleep(self.max_period_second)
+                    f'Table `transactions` still not up to date. Sleeping for {self.wait_time} seconds...')
+                time.sleep(self.wait_time)
 
     def fetch_yesterday_tx_data(self, client: Client) -> None:
         QUERY = (
@@ -57,14 +57,15 @@ class BigQuery():
                 WHERE CAST(block_timestamp AS DATE) = '{self.yesterday}'
             )
             SELECT 
-                EXTRACT(YEAR FROM block_timestamp) ||
-                    SUBSTR('0' || CAST(EXTRACT(MONTH FROM block_timestamp) AS STRING), -2) ||
-                    SUBSTR('0' || CAST(EXTRACT(DAY FROM block_timestamp) AS STRING), -2) ||
-                    SUBSTR('0' || CAST(EXTRACT(HOUR FROM block_timestamp) AS STRING), -2) ||
-                    SUBSTR('0' || CAST(EXTRACT(MINUTE FROM block_timestamp) AS STRING), -2) 
+                EXTRACT(YEAR FROM AGG.block_timestamp) ||
+                    SUBSTR('0' || CAST(EXTRACT(MONTH FROM AGG.block_timestamp) AS STRING), -2) ||
+                    SUBSTR('0' || CAST(EXTRACT(DAY FROM AGG.block_timestamp) AS STRING), -2) ||
+                    SUBSTR('0' || CAST(EXTRACT(HOUR FROM AGG.block_timestamp) AS STRING), -2) ||
+                    SUBSTR('0' || CAST(EXTRACT(MINUTE FROM AGG.block_timestamp) AS STRING), -2) 
                     AS `minute_group_id`,
                 AGG.block_timestamp,
                 avg_gas_price_gwei,
+                tx_count,
                 tx_fees_eth,
                 volume_eth,
                 active_address
@@ -73,11 +74,12 @@ class BigQuery():
                     SELECT block_timestamp,
                     AVG(gas_price / POW(10,9)) AS `avg_gas_price_gwei`,
                     SUM(gas_price / POW(10,18) * receipt_gas_used) AS `tx_fees_eth`,
-                    SUM(value / POW(10,18)) AS `volume_eth`
+                    SUM(value / POW(10,18)) AS `volume_eth`,
+                    COUNT(*) AS `tx_count`
                     FROM MIN_TX
                     GROUP BY block_timestamp
                 ) AGG
-                LEFT JOIN
+                LEFT JOIN 
                 (
                     SELECT block_timestamp, COUNT(DISTINCT address) AS `active_address`
                     FROM MIN_TX CROSS JOIN
@@ -92,6 +94,7 @@ class BigQuery():
         if result.total_rows is not None and result.total_rows > 0:
             result_df = result.to_dataframe()
             result_df.to_csv(
-                f'/opt/airflow/dags/bigquery/temp_tx_{self.yesterday}.csv', index=False, header=False)
+                f'/opt/airflow/dags/python_callable/bigquery/temp_tx_{self.yesterday}.csv', 
+                index=False, header=False)
         else:
             raise QueryError(f'total result from query \'{result.total_rows}\'')
