@@ -41,3 +41,4 @@ def run_postgres_import():
         if conn:
             curr.close()
             conn.close()
+            logging.info('psycopg2 cursor closed')

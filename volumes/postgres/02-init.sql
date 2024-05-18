@@ -3,7 +3,7 @@
 -- create a ethereum schema
 CREATE SCHEMA ethereum;
 
--- create a table named block_price
+-- create a table named block_price (stream)
 CREATE TABLE ethereum.block_price (
     block INT PRIMARY KEY,
     size INT,
@@ -12,22 +12,35 @@ CREATE TABLE ethereum.block_price (
     transaction_count INT,
     base_fee_per_gas_gwei DECIMAL(16, 9),
     burned_eth DECIMAL(16, 9),
-    block_timestamp TIMESTAMP NOT NULL,
+    block_timestamp TIMESTAMPTZ NOT NULL,
     static_rewards_eth SMALLINT,
     validator_withdrawals_eth DECIMAL (16, 9),
     price DECIMAL(16, 8) NOT NULL
 );
-CREATE INDEX idx_ethereum_block_price_block ON ethereum.block_price(block);
+CREATE INDEX idx_ethereum_block_price_ts_brin ON ethereum.block_price USING BRIN (block_timestamp);
 
+-- create a table named transactions (batch)
 CREATE TABLE ethereum.transactions (
     minute_group_id VARCHAR(12) PRIMARY KEY,
-    block_timestamp TIMESTAMP NOT NULL,
+    block_timestamp TIMESTAMPTZ NOT NULL,
     avg_gas_price_gwei DECIMAL(32, 16),
+    tx_count INT,
     tx_fees_eth DECIMAL(32, 16),
     volume_eth DECIMAL(32, 16),
     active_address INT
 );
-CREATE INDEX idx_ethereum_transaction_minute ON ethereum.transactions(minute_group_id);
+CREATE INDEX idx_ethereum_transaction_ts_brin ON ethereum.transactions USING BRIN (block_timestamp);
+
+-- create a table named model_input (batch)
+CREATE TABLE ethereum.model_input (
+    model_input_id SERIAL PRIMARY KEY,
+    block_timestamp TIMESTAMPTZ NOT NULL,
+    volume_usd DECIMAL(32, 12),
+    tx_count BIGINT,
+    senkou_span_sub DECIMAL(32, 16),
+    alligator_sub DECIMAL(32, 16)
+);
+CREATE INDEX idx_ethereum_model_input_ts_brin ON ethereum.model_input USING BRIN (block_timestamp);
 
 -- create grafana user with only reading privileges
 CREATE USER grafana_reader WITH PASSWORD 'grafana';
