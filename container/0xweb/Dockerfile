@@ -1,7 +1,7 @@
 FROM python:3.11
 
 RUN apt-get update && \
-    apt-get install -y nodejs && \
+    apt-get install -y nodejs=20.10.0 && \
     apt-get install -y npm
 
 

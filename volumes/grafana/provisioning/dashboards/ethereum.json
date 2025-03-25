@@ -1,2634 +1,2717 @@
 {
-    "annotations": {
-        "list": [
-            {
-                "builtIn": 1,
-                "datasource": {
-                    "type": "datasource",
-                    "uid": "grafana"
-                },
-                "enable": true,
-                "hide": true,
-                "iconColor": "rgba(0, 211, 255, 1)",
-                "name": "Annotations & Alerts",
-                "target": {
-                    "limit": 100,
-                    "matchAny": false,
-                    "tags": [],
-                    "type": "dashboard"
-                },
-                "type": "dashboard"
-            }
-        ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "links": [],
-    "liveNow": true,
-    "panels": [
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "currencyUSD",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 8,
-                "x": 0,
-                "y": 0
-            },
-            "id": 4,
-            "interval": "10s",
-            "options": {
-                "colorMode": "none",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "horizontal",
-                "reduceOptions": {
-                    "calcs": [],
-                    "fields": "/.*/",
-                    "values": true
-                },
-                "showPercentChange": false,
-                "text": {
-                    "valueSize": 64
-                },
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "group": [],
-                    "metricColumn": "none",
-                    "rawQuery": true,
-                    "rawSql": "SELECT\n  price\nFROM\n  ethereum.block_price\nORDER BY block DESC\nLIMIT 1;\n",
-                    "refId": "Latest Price",
-                    "select": [
-                        [
-                            {
-                                "params": ["value"],
-                                "type": "column"
-                            }
-                        ]
-                    ],
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    },
-                    "timeColumn": "time",
-                    "where": [
-                        {
-                            "name": "$__timeFilter",
-                            "params": [],
-                            "type": "macro"
-                        }
-                    ]
-                }
-            ],
-            "title": "Ethereum Price",
-            "type": "stat"
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
         },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "noValue": "Not found",
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 8,
-                "x": 8,
-                "y": 0
-            },
-            "id": 12,
-            "options": {
-                "colorMode": "none",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": ["lastNotNull"],
-                    "fields": "",
-                    "values": false
-                },
-                "showPercentChange": false,
-                "text": {
-                    "valueSize": 64
-                },
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "SELECT\r\n  SUM(transaction_count)\r\nFROM\r\n  ethereum.block_price\r\nWHERE block_timestamp BETWEEN current_timestamp - INTERVAL '$bucket_interval' AND current_timestamp;\r\n",
-                    "refId": "TX Count",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Transactions Count (Last $bucket_interval)",
-            "type": "stat"
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
         },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 8,
-                "x": 16,
-                "y": 0
-            },
-            "id": 11,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "title": "Model Prediction Result",
-            "type": "timeseries"
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none",
+          "unitScale": false
         },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic-by-name"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineStyle": {
-                            "fill": "solid"
-                        },
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "never",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "decimals": 2,
-                    "fieldMinMax": false,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            }
-                        ]
-                    },
-                    "unit": "currencyUSD",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 10,
-                "w": 24,
-                "x": 0,
-                "y": 4
-            },
-            "id": 10,
-            "options": {
-                "candleStyle": "candles",
-                "colorStrategy": "open-close",
-                "colors": {
-                    "down": "red",
-                    "up": "green"
-                },
-                "fields": {
-                    "close": "close",
-                    "high": "high",
-                    "low": "low",
-                    "open": "open"
-                },
-                "includeAllFields": true,
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "mode": "candles"
-            },
-            "pluginVersion": "8.4.0",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "group": [],
-                    "hide": false,
-                    "metricColumn": "none",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n)\r\nSELECT MMV.block_timestamp,\r\n  O.price as open,\r\n  high,\r\n  low,\r\n  C.price as close,\r\n  AVG(C.price) OVER (ORDER BY C.block ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS MA7,\r\n  AVG(C.price) OVER (ORDER BY C.block ROWS BETWEEN 24 PRECEDING AND CURRENT ROW) AS MA25,\r\n  AVG(C.price) OVER (ORDER BY C.block ROWS BETWEEN 98 PRECEDING AND CURRENT ROW) AS MA99\r\nFROM\r\n  (\r\n    SELECT block_timestamp,\r\n      MAX(price) AS high,\r\n      MIN(price) AS low\r\n    FROM T\r\n    GROUP BY block_timestamp\r\n  ) MMV,\r\n  (\r\n    SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n    FROM T\r\n    ORDER BY block_timestamp, block DESC\r\n  ) C,\r\n  (\r\n    SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n    FROM T\r\n    ORDER BY block_timestamp, block\r\n  ) O\r\nWHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\nORDER BY MMV.block_timestamp\r\nLIMIT 100000",
-                    "refId": "OHLC & MA",
-                    "select": [
-                        [
-                            {
-                                "params": ["value"],
-                                "type": "column"
-                            }
-                        ]
-                    ],
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    },
-                    "timeColumn": "time",
-                    "where": [
-                        {
-                            "name": "$__timeFilter",
-                            "params": [],
-                            "type": "macro"
-                        }
-                    ]
-                }
-            ],
-            "title": "Ethereum Price",
-            "type": "candlestick"
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "interval": "10s",
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^price$/",
+          "values": false
         },
-        {
-            "collapsed": false,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 14
-            },
-            "id": 23,
-            "panels": [],
-            "title": "On-chain Metrics",
-            "type": "row"
+        "showPercentChange": true,
+        "text": {
+          "valueSize": 64
         },
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.3",
+      "targets": [
         {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "dark-green",
-                        "mode": "fixed"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 30,
-                        "gradientMode": "opacity",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 8,
-                "x": 0,
-                "y": 15
-            },
-            "hideTimeOverride": true,
-            "id": 15,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "timezone": ["Asia/Bangkok"],
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(transaction_count) AS transaction_count\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(transaction_count) OVER (ORDER BY block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) AS transaction_count\r\nFROM T;\r\n",
-                    "refId": "TX Count",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Transactions Count (MA7 of $bucket_interval)",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "dark-red",
-                        "mode": "fixed"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 30,
-                        "gradientMode": "opacity",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "ETH",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 8,
-                "x": 8,
-                "y": 15
-            },
-            "id": 20,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(burned_eth) AS burned_eth\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(burned_eth) OVER (ORDER BY block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) AS burned_eth\r\nFROM T;\r\n",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "ETH Burned (MA7 of $bucket_interval)",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 30,
-                        "gradientMode": "opacity",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "normal"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "currencyUSD",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 8,
-                "x": 16,
-                "y": 15
-            },
-            "id": 17,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    static_rewards_eth,\r\n    validator_withdrawals_eth,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nTX AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(tx_fees_eth) AS tx_fees_eth\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT R.block_timestamp,\r\n  AVG(static_rewards_eth) OVER (ORDER BY R.block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) * price AS \"Static Rewards\",\r\n  AVG(validator_withdrawals_eth) OVER (ORDER BY R.block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) * price AS \"Validator Withdrawals\",\r\n  TX.tx_fees_eth * price AS \"Transaction Fees\"\r\nFROM TX,\r\n  (\r\n    SELECT block_timestamp,\r\n      SUM(static_rewards_eth) AS static_rewards_eth,\r\n      SUM(validator_withdrawals_eth) AS validator_withdrawals_eth\r\n    FROM T\r\n    GROUP BY block_timestamp\r\n  ) R,\r\n  (\r\n    SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n    FROM T\r\n    ORDER BY block_timestamp, block DESC\r\n  ) C\r\nWHERE R.block_timestamp = C.block_timestamp AND R.block_timestamp = TX.block_timestamp\r\n",
-                    "refId": "Validator Revenue",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Block Validator Revenue (MA7 of $bucket_interval)",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "#1cd9b2",
-                        "mode": "fixed"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 30,
-                        "gradientMode": "opacity",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "currencyUSD",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 8,
-                "x": 0,
-                "y": 23
-            },
-            "id": 13,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(volume_eth) AS volume\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n),\r\nBP AS (\r\n  SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n  FROM (\r\n    SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n      block,\r\n      price\r\n    FROM ethereum.block_price\r\n  )\r\n  ORDER BY block_timestamp, block DESC\r\n)\r\nSELECT T.block_timestamp,\r\n  AVG(volume) OVER (ORDER BY T.block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) * price AS volume\r\nFROM T, BP\r\nWHERE T.block_timestamp = BP.block_timestamp;\r\n",
-                    "refId": "Trading Volume",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "timeShift": "1d/d",
-            "title": "Trading Volume (MA7 of $bucket_interval)",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "#1e10ee",
-                        "mode": "fixed"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 30,
-                        "gradientMode": "opacity",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 8,
-                "x": 8,
-                "y": 23
-            },
-            "hideTimeOverride": false,
-            "id": 16,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "timezone": ["Asia/Bangkok"],
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(active_address) AS active_address\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(active_address) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS active_address\r\nFROM T;\r\n",
-                    "refId": "Active Address",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "timeShift": "1d/d",
-            "title": "Active Addresses (MA7 of $bucket_interval)",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "dark-orange",
-                        "mode": "fixed"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 30,
-                        "gradientMode": "opacity",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "Gwei",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 8,
-                "x": 16,
-                "y": 23
-            },
-            "id": 19,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(avg_gas_price_gwei) AS avg_gas_price_gwei\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(avg_gas_price_gwei) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS avg_gas_price_gwei\r\nFROM T;\r\n",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "timeShift": "1d/d",
-            "title": "Average Gas Price (MA7 of $bucket_interval)",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "blue",
-                        "mode": "fixed"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "bytes",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 8,
-                "x": 0,
-                "y": 31
-            },
-            "id": 28,
-            "options": {
-                "colorMode": "none",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": ["lastNotNull"],
-                    "fields": "",
-                    "values": false
-                },
-                "showPercentChange": false,
-                "text": {
-                    "valueSize": 64
-                },
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    AVG(size) AS size\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT\r\n  AVG(size) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)\r\nFROM T\r\nORDER BY block_timestamp\r\nLIMIT 100000;\r\n",
-                    "refId": "Block Size",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Average Block Size (MA7 of $bucket_interval)",
-            "type": "stat"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "semi-dark-purple",
-                        "mode": "fixed"
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "percentunit",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 8,
-                "x": 8,
-                "y": 31
-            },
-            "id": 29,
-            "options": {
-                "colorMode": "none",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": ["lastNotNull"],
-                    "fields": "",
-                    "values": false
-                },
-                "showPercentChange": false,
-                "text": {
-                    "valueSize": 64
-                },
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    AVG(CAST(gas_used_wei AS DECIMAL(14,2)) / CAST(gas_limit_wei AS DECIMAL(14,2))) AS gas_used_percentage\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT\r\n  AVG(gas_used_percentage) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)\r\nFROM T\r\nORDER BY block_timestamp\r\nLIMIT 100000;\r\n",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Average Gas Used Percentage (MA7 of $bucket_interval)",
-            "type": "stat"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "super-light-red",
-                        "mode": "fixed"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "Gwei",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 8,
-                "x": 16,
-                "y": 31
-            },
-            "id": 27,
-            "options": {
-                "colorMode": "none",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": ["lastNotNull"],
-                    "fields": "",
-                    "values": false
-                },
-                "showPercentChange": false,
-                "text": {
-                    "valueSize": 64
-                },
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    AVG(base_fee_per_gas_gwei) AS base_fee_per_gas_gwei\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT\r\n  AVG(base_fee_per_gas_gwei) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)\r\nFROM T\r\nORDER BY block_timestamp\r\nLIMIT 100000;\r\n",
-                    "refId": "Base Fee",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Average Base Fee (MA7 of $bucket_interval)",
-            "type": "stat"
-        },
-        {
-            "collapsed": false,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 36
-            },
-            "id": 22,
-            "panels": [],
-            "title": "Technical Indicators",
-            "type": "row"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Tenkan Sen"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "purple",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.showPoints",
-                                "value": "never"
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Kijun Sen"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "orange",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.showPoints",
-                                "value": "never"
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Senkou Span A"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.fillBelowTo",
-                                "value": "Senkou Span B"
-                            },
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "green",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.showPoints",
-                                "value": "never"
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Senkou Span B"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.fillBelowTo",
-                                "value": "Senkou Span A"
-                            },
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "red",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.showPoints",
-                                "value": "never"
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Chikou Span"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-blue",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.showPoints",
-                                "value": "never"
-                            }
-                        ]
-                    },
-                    {
-                        "__systemRef": "hideSeriesFrom",
-                        "matcher": {
-                            "id": "byNames",
-                            "options": {
-                                "mode": "exclude",
-                                "names": ["Senkou Span A", "Senkou Span B"],
-                                "prefix": "All except:",
-                                "readOnly": true
-                            }
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.hideFrom",
-                                "value": {
-                                    "legend": false,
-                                    "tooltip": false,
-                                    "viz": true
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "gridPos": {
-                "h": 10,
-                "w": 24,
-                "x": 0,
-                "y": 37
-            },
-            "id": 18,
-            "options": {
-                "candleStyle": "candles",
-                "colorStrategy": "open-close",
-                "colors": {
-                    "down": "red",
-                    "up": "green"
-                },
-                "includeAllFields": true,
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "mode": "candles+volume"
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nOHLC AS (\r\n  SELECT MMV.block_timestamp,\r\n    O.price as open,\r\n    high,\r\n    low,\r\n    C.price as close\r\n  FROM\r\n    (\r\n      SELECT block_timestamp,\r\n        MAX(price) AS high,\r\n        MIN(price) AS low\r\n      FROM T\r\n      GROUP BY block_timestamp\r\n    ) MMV,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block DESC\r\n    ) C,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block\r\n    ) O\r\n  WHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\n  ORDER BY MMV.block_timestamp\r\n  LIMIT 100000\r\n),\r\nICHIMOKU AS (\r\n  SELECT block_timestamp,\r\n    (MAX(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $tenkan_periods - 1 PRECEDING AND CURRENT ROW) + \r\n      MIN(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $tenkan_periods - 1 PRECEDING AND CURRENT ROW)) / 2 \r\n      AS \"Tenkan Sen\",\r\n    (MAX(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $kijun_periods - 1 PRECEDING AND CURRENT ROW) + \r\n      MIN(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $kijun_periods - 1 PRECEDING AND CURRENT ROW)) / 2 \r\n      AS \"Kijun Sen\",\r\n    (MAX(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $senkou_b_periods - 1 PRECEDING AND CURRENT ROW) + \r\n      MIN(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $senkou_b_periods - 1 PRECEDING AND CURRENT ROW)) / 2 \r\n      AS \"Senkou Span B\",\r\n    LEAD(close, $kijun_periods) OVER (ORDER BY block_timestamp) AS \"Chikou Span\"\r\n  FROM OHLC\r\n)\r\nSELECT OHLC.block_timestamp, open, high, low, close,\r\n  \"Tenkan Sen\", \"Kijun Sen\", (\"Tenkan Sen\" + \"Kijun Sen\") / 2 AS \"Senkou Span A\", \"Senkou Span B\", \"Chikou Span\"\r\nFROM OHLC, ICHIMOKU\r\nWHERE OHLC.block_timestamp = ICHIMOKU.block_timestamp",
-                    "refId": "Ichimoku",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Ichimoku Cloud",
-            "type": "candlestick"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "never",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "MACD"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.axisPlacement",
-                                "value": "hidden"
-                            },
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-blue",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.fillBelowTo",
-                                "value": "Signal Line"
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Signal Line"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.axisPlacement",
-                                "value": "hidden"
-                            },
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-yellow",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.fillBelowTo",
-                                "value": "MACD"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "gridPos": {
-                "h": 10,
-                "w": 24,
-                "x": 0,
-                "y": 47
-            },
-            "id": 24,
-            "options": {
-                "candleStyle": "candles",
-                "colorStrategy": "open-close",
-                "colors": {
-                    "down": "red",
-                    "up": "green"
-                },
-                "includeAllFields": true,
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "mode": "candles+volume"
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nOHLC AS (\r\n  SELECT MMV.block_timestamp,\r\n    O.price as open,\r\n    high,\r\n    low,\r\n    C.price as close\r\n  FROM\r\n    (\r\n      SELECT block_timestamp,\r\n        MAX(price) AS high,\r\n        MIN(price) AS low\r\n      FROM T\r\n      GROUP BY block_timestamp\r\n    ) MMV,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block DESC\r\n    ) C,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block\r\n    ) O\r\n  WHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\n  ORDER BY MMV.block_timestamp\r\n  LIMIT 100000\r\n),\r\nMACD AS (\r\n  SELECT block_timestamp,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_fast_periods)) + \r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)\r\n    AS fast_ema,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_slow_periods)) +\r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)\r\n    AS slow_ema\r\n  FROM OHLC\r\n)\r\nSELECT OHLC.block_timestamp, open, high, low, close, \r\n  fast_ema - slow_ema AS \"MACD\",\r\n  (fast_ema - slow_ema - AVG(fast_ema - slow_ema) OVER (ORDER BY OHLC.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)) * \r\n    ($macd_smooth_factor / (1 + $macd_signal_periods)) +\r\n    AVG(fast_ema - slow_ema) OVER (ORDER BY OHLC.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)\r\n  AS \"Signal Line\"\r\nFROM OHLC, MACD\r\nWHERE OHLC.block_timestamp = MACD.block_timestamp\r\n",
-                    "refId": "MACD",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Moving Average Convergence / Divergence (MACD)",
-            "type": "candlestick"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "green",
-                        "mode": "fixed"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "bars",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "decimals": 2,
-                    "fieldMinMax": false,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Negative Difference"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.drawStyle",
-                                "value": "bars"
-                            },
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "red",
-                                    "mode": "fixed"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 24,
-                "x": 0,
-                "y": 57
-            },
-            "id": 26,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH C AS (\r\n  SELECT DISTINCT ON (block_timestamp) block_timestamp, \r\n    block, \r\n    price AS close\r\n  FROM (\r\n    SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n      block,\r\n      price\r\n    FROM ethereum.block_price\r\n  )\r\n  ORDER BY block_timestamp, block DESC\r\n  LIMIT 100000\r\n),\r\nEMA AS (\r\n  SELECT block_timestamp,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_fast_periods)) + \r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)\r\n    AS fast_ema,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_slow_periods)) +\r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)\r\n    AS slow_ema\r\n  FROM C\r\n),\r\nMACD AS (\r\n  SELECT C.block_timestamp,\r\n    fast_ema - slow_ema AS macd,\r\n    (fast_ema - slow_ema - AVG(fast_ema - slow_ema) OVER (ORDER BY C.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_signal_periods)) +\r\n      AVG(fast_ema - slow_ema) OVER (ORDER BY C.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)\r\n    AS signal_line\r\n  FROM C, EMA\r\n  WHERE C.block_timestamp = EMA.block_timestamp\r\n)\r\nSELECT MACD.block_timestamp, \r\n  pos_diff AS \"Positive Difference\", neg_diff AS \"Negative Difference\"\r\nFROM MACD\r\n  LEFT JOIN\r\n  (\r\n    SELECT block_timestamp,\r\n      macd - signal_line AS pos_diff\r\n    FROM MACD\r\n    WHERE macd - signal_line > 0\r\n  ) POS\r\n  ON MACD.block_timestamp = POS.block_timestamp\r\n  LEFT JOIN\r\n  (\r\n    SELECT block_timestamp,\r\n      macd - signal_line AS neg_diff\r\n    FROM MACD\r\n    WHERE macd - signal_line < 0\r\n  ) NEG\r\n  ON MACD.block_timestamp = NEG.block_timestamp",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "MACD Histogram",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "never",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Jaw"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-blue",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.lineWidth",
-                                "value": 2
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Teeth"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-red",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.lineWidth",
-                                "value": 2
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "Lips"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-green",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.lineWidth",
-                                "value": 2
-                            }
-                        ]
-                    }
-                ]
-            },
-            "gridPos": {
-                "h": 10,
-                "w": 24,
-                "x": 0,
-                "y": 62
-            },
-            "id": 25,
-            "options": {
-                "candleStyle": "candles",
-                "colorStrategy": "open-close",
-                "colors": {
-                    "down": "red",
-                    "up": "green"
-                },
-                "includeAllFields": true,
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "mode": "candles+volume"
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nOHLC AS (\r\n  SELECT MMV.block_timestamp,\r\n    O.price as open,\r\n    high,\r\n    low,\r\n    C.price as close\r\n  FROM\r\n    (\r\n      SELECT block_timestamp,\r\n        MAX(price) AS high,\r\n        MIN(price) AS low\r\n      FROM T\r\n      GROUP BY block_timestamp\r\n    ) MMV,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block DESC\r\n    ) C,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block\r\n    ) O\r\n  WHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\n  ORDER BY MMV.block_timestamp\r\n  LIMIT 100000\r\n)\r\nSELECT OHLC.block_timestamp, open, high, low, close,\r\n  AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $jaw_periods + $jaw_offset PRECEDING AND $jaw_offset PRECEDING) AS \"Jaw\",\r\n  AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $teeth_periods + $teeth_offset PRECEDING AND $teeth_offset PRECEDING) AS \"Teeth\",\r\n  AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $lip_periods + $lip_offset PRECEDING AND $lip_offset PRECEDING) AS \"Lips\"\r\nFROM OHLC",
-                    "refId": "William Alligator",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Williams Alligator",
-            "type": "candlestick"
-        },
-        {
-            "collapsed": false,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 72
-            },
-            "id": 21,
-            "panels": [],
-            "title": "Raw Data",
-            "type": "row"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": "auto",
-                        "cellOptions": {
-                            "type": "auto"
-                        },
-                        "filterable": false,
-                        "inspect": false
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "gas_limit_wei"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 110
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "size"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 112
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "block"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 113
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "base_fee_per_gas_gwei"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 181
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "burned_eth"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 97
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "block_timestamp"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 198
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "validator_withdrawals_eth"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 195
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "price"
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.width",
-                                "value": 81
-                            }
-                        ]
-                    }
-                ]
-            },
-            "gridPos": {
-                "h": 7,
-                "w": 24,
-                "x": 0,
-                "y": 73
-            },
-            "id": 8,
-            "options": {
-                "cellHeight": "sm",
-                "footer": {
-                    "countRows": false,
-                    "fields": "",
-                    "reducer": ["sum"],
-                    "show": false
-                },
-                "showHeader": true,
-                "sortBy": []
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "group": [],
-                    "metricColumn": "none",
-                    "rawQuery": true,
-                    "rawSql": "SELECT *\nFROM\n  ethereum.block_price\nORDER BY block DESC\nLIMIT 5;\n",
-                    "refId": "A",
-                    "select": [
-                        [
-                            {
-                                "params": ["value"],
-                                "type": "column"
-                            }
-                        ]
-                    ],
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    },
-                    "timeColumn": "time",
-                    "where": [
-                        {
-                            "name": "$__timeFilter",
-                            "params": [],
-                            "type": "macro"
-                        }
-                    ]
-                }
-            ],
-            "title": "Latest block_price Data",
-            "type": "table"
-        },
-        {
-            "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "PD939C64E29633554"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "auto",
-                        "cellOptions": {
-                            "type": "auto"
-                        },
-                        "inspect": false
-                    },
-                    "decimals": 6,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 7,
-                "w": 24,
-                "x": 0,
-                "y": 80
-            },
-            "id": 30,
-            "options": {
-                "cellHeight": "sm",
-                "footer": {
-                    "countRows": false,
-                    "fields": "",
-                    "reducer": ["sum"],
-                    "show": false
-                },
-                "showHeader": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "PD939C64E29633554"
-                    },
-                    "editorMode": "code",
-                    "format": "table",
-                    "rawQuery": true,
-                    "rawSql": "SELECT block_timestamp, avg_gas_price_gwei, tx_fees_eth, volume_eth, active_address\r\nFROM\r\n  ethereum.transactions\r\nORDER BY minute_group_id DESC\r\nLIMIT 5;\r\n",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
-                }
-            ],
-            "title": "Latest transactions Data",
-            "type": "table"
-        }
-    ],
-    "refresh": "",
-    "schemaVersion": 39,
-    "tags": [],
-    "templating": {
-        "list": [
-            {
-                "auto": false,
-                "auto_count": 30,
-                "auto_min": "10s",
-                "current": {
-                    "selected": false,
-                    "text": "1h",
-                    "value": "1h"
-                },
-                "hide": 0,
-                "label": "Interval",
-                "name": "bucket_interval",
-                "options": [
-                    {
-                        "selected": false,
-                        "text": "1m",
-                        "value": "1m"
-                    },
-                    {
-                        "selected": false,
-                        "text": "5m",
-                        "value": "5m"
-                    },
-                    {
-                        "selected": false,
-                        "text": "10m",
-                        "value": "10m"
-                    },
-                    {
-                        "selected": false,
-                        "text": "15m",
-                        "value": "15m"
-                    },
-                    {
-                        "selected": false,
-                        "text": "30m",
-                        "value": "30m"
-                    },
-                    {
-                        "selected": true,
-                        "text": "1h",
-                        "value": "1h"
-                    },
-                    {
-                        "selected": false,
-                        "text": "6h",
-                        "value": "6h"
-                    },
-                    {
-                        "selected": false,
-                        "text": "12h",
-                        "value": "12h"
-                    },
-                    {
-                        "selected": false,
-                        "text": "1d",
-                        "value": "1d"
-                    }
+          "datasource": {
+            "type": "postgres",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT block,\n  price\nFROM (\n  SELECT block,\n    price\n  FROM ethereum.block_price\n  ORDER BY block DESC\n  LIMIT 1000\n)\nORDER BY block;\n",
+          "refId": "Latest Price",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
                 ],
-                "query": "1m,5m,10m,15m,30m,1h,6h,12h,1d",
-                "queryValue": "",
-                "refresh": 2,
-                "skipUrlSync": false,
-                "type": "interval"
-            },
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "timeColumn": "time",
+          "where": [
             {
-                "hide": 2,
-                "name": "tenkan_periods",
-                "query": "9",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "kijun_periods",
-                "query": "26",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "senkou_b_periods",
-                "query": "52",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "macd_fast_periods",
-                "query": "12",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "macd_slow_periods",
-                "query": "26",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "macd_signal_periods",
-                "query": "9",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "macd_smooth_factor",
-                "query": "2",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "jaw_periods",
-                "query": "13",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "jaw_offset",
-                "query": "8",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "teeth_periods",
-                "query": "8",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "teeth_offset",
-                "query": "5",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "lip_periods",
-                "query": "5",
-                "skipUrlSync": false,
-                "type": "constant"
-            },
-            {
-                "hide": 2,
-                "name": "lip_offset",
-                "query": "3",
-                "skipUrlSync": false,
-                "type": "constant"
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
             }
+          ]
+        }
+      ],
+      "title": "Ethereum Price",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": false,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 0,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "semi-dark-orange",
+                "value": 25
+              },
+              {
+                "color": "yellow",
+                "value": 45
+              },
+              {
+                "color": "green",
+                "value": 55
+              },
+              {
+                "color": "dark-green",
+                "value": 75
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 16,
+        "x": 8,
+        "y": 0
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT block_timestamp, \r\n  CASE WHEN predict_result < 0\r\n    THEN 0\r\n    ELSE ROUND(predict_result * 100, 0)\r\n  END\r\nFROM ethereum.model_prediction;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "ISI Prediction History",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "semi-dark-orange",
+                "value": 25
+              },
+              {
+                "color": "yellow",
+                "value": 45
+              },
+              {
+                "color": "green",
+                "value": 55
+              },
+              {
+                "color": "dark-green",
+                "value": 75
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 4
+      },
+      "id": 11,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT CASE WHEN predict_result < 0\r\n  THEN 0\r\n  ELSE ROUND(predict_result * 100, 0)\r\n  END\r\nFROM ethereum.model_prediction\r\nORDER BY block_timestamp DESC\r\nLIMIT 1;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Today ISI Prediction",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 10,
+      "options": {
+        "candleStyle": "candles",
+        "colorStrategy": "open-close",
+        "colors": {
+          "down": "red",
+          "up": "green"
+        },
+        "fields": {
+          "close": "close",
+          "high": "high",
+          "low": "low",
+          "open": "open"
+        },
+        "includeAllFields": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mode": "candles"
+      },
+      "pluginVersion": "8.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n)\r\nSELECT MMV.block_timestamp,\r\n  O.price as open,\r\n  high,\r\n  low,\r\n  C.price as close,\r\n  AVG(C.price) OVER (ORDER BY C.block ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS MA7,\r\n  AVG(C.price) OVER (ORDER BY C.block ROWS BETWEEN 24 PRECEDING AND CURRENT ROW) AS MA25,\r\n  AVG(C.price) OVER (ORDER BY C.block ROWS BETWEEN 98 PRECEDING AND CURRENT ROW) AS MA99\r\nFROM\r\n  (\r\n    SELECT block_timestamp,\r\n      MAX(price) AS high,\r\n      MIN(price) AS low\r\n    FROM T\r\n    GROUP BY block_timestamp\r\n  ) MMV,\r\n  (\r\n    SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n    FROM T\r\n    ORDER BY block_timestamp, block DESC\r\n  ) C,\r\n  (\r\n    SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n    FROM T\r\n    ORDER BY block_timestamp, block\r\n  ) O\r\nWHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\nORDER BY MMV.block_timestamp\r\nLIMIT 100000",
+          "refId": "OHLC & MA",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Ethereum Price History",
+      "type": "candlestick"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 23,
+      "panels": [],
+      "title": "On-chain Metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 22
+      },
+      "hideTimeOverride": true,
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "timezone": [
+          "Asia/Bangkok"
+        ],
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(transaction_count) AS transaction_count\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(transaction_count) OVER (ORDER BY block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) AS transaction_count\r\nFROM T;\r\n",
+          "refId": "TX Count",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Transactions Count (MA7 of $bucket_interval)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ETH",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 22
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(burned_eth) AS burned_eth\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(burned_eth) OVER (ORDER BY block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) AS burned_eth\r\nFROM T;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "ETH Burned (MA7 of $bucket_interval)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "currencyUSD",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 22
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    static_rewards_eth,\r\n    validator_withdrawals_eth,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nTX AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(tx_fees_eth) AS tx_fees_eth\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT R.block_timestamp,\r\n  AVG(static_rewards_eth) OVER (ORDER BY R.block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) * price AS \"Static Rewards\",\r\n  AVG(validator_withdrawals_eth) OVER (ORDER BY R.block_timestamp ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) * price AS \"Validator Withdrawals\",\r\n  TX.tx_fees_eth * price AS \"Transaction Fees\"\r\nFROM TX,\r\n  (\r\n    SELECT block_timestamp,\r\n      SUM(static_rewards_eth) AS static_rewards_eth,\r\n      SUM(validator_withdrawals_eth) AS validator_withdrawals_eth\r\n    FROM T\r\n    GROUP BY block_timestamp\r\n  ) R,\r\n  (\r\n    SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n    FROM T\r\n    ORDER BY block_timestamp, block DESC\r\n  ) C\r\nWHERE R.block_timestamp = C.block_timestamp AND R.block_timestamp = TX.block_timestamp\r\n",
+          "refId": "Validator Revenue",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Block Validator Revenue (MA7 of $bucket_interval)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#1cd9b2",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "currencyUSD",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 30
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(volume_eth) AS volume\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n),\r\nBP AS (\r\n  SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n  FROM (\r\n    SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n      block,\r\n      price\r\n    FROM ethereum.block_price\r\n  )\r\n  ORDER BY block_timestamp, block DESC\r\n)\r\nSELECT T.block_timestamp,\r\n  AVG(volume) OVER (ORDER BY T.block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) * price AS volume\r\nFROM T, BP\r\nWHERE T.block_timestamp = BP.block_timestamp;\r\n",
+          "refId": "Trading Volume",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "timeShift": "1d/d",
+      "title": "Trading Volume (MA7 of $bucket_interval)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#1e10ee",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 30
+      },
+      "hideTimeOverride": false,
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "timezone": [
+          "Asia/Bangkok"
+        ],
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(active_address) AS active_address\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(active_address) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS active_address\r\nFROM T;\r\n",
+          "refId": "Active Address",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "timeShift": "1d/d",
+      "title": "Active Addresses (MA7 of $bucket_interval)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-orange",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Gwei",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 30
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    SUM(avg_gas_price_gwei) AS avg_gas_price_gwei\r\n  FROM ethereum.transactions\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT block_timestamp,\r\n  AVG(avg_gas_price_gwei) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS avg_gas_price_gwei\r\nFROM T;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "timeShift": "1d/d",
+      "title": "Average Gas Price (MA7 of $bucket_interval)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 38
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 64
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    AVG(size) AS size\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT\r\n  AVG(size) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)\r\nFROM T\r\nORDER BY block_timestamp\r\nLIMIT 100000;\r\n",
+          "refId": "Block Size",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Average Block Size (MA7 of $bucket_interval)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-purple",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 38
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 64
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    AVG(CAST(gas_used_wei AS DECIMAL(14,2)) / CAST(gas_limit_wei AS DECIMAL(14,2))) AS gas_used_percentage\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT\r\n  AVG(gas_used_percentage) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)\r\nFROM T\r\nORDER BY block_timestamp\r\nLIMIT 100000;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Average Gas Used Percentage (MA7 of $bucket_interval)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Gwei",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 38
+      },
+      "id": 27,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 64
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (\r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    AVG(base_fee_per_gas_gwei) AS base_fee_per_gas_gwei\r\n  FROM ethereum.block_price\r\n  GROUP BY date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01')\r\n)\r\nSELECT\r\n  AVG(base_fee_per_gas_gwei) OVER (ORDER BY block_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)\r\nFROM T\r\nORDER BY block_timestamp\r\nLIMIT 100000;\r\n",
+          "refId": "Base Fee",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Average Base Fee (MA7 of $bucket_interval)",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 22,
+      "panels": [],
+      "title": "Technical Indicators",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tenkan Sen"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "never"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Kijun Sen"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "never"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Senkou Span A"
+            },
+            "properties": [
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Senkou Span B"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "never"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Senkou Span B"
+            },
+            "properties": [
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Senkou Span A"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "never"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Chikou Span"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "never"
+              }
+            ]
+          },
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Senkou Span A",
+                  "Senkou Span B"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
         ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 18,
+      "options": {
+        "candleStyle": "candles",
+        "colorStrategy": "open-close",
+        "colors": {
+          "down": "red",
+          "up": "green"
+        },
+        "includeAllFields": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mode": "candles+volume"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nOHLC AS (\r\n  SELECT MMV.block_timestamp,\r\n    O.price as open,\r\n    high,\r\n    low,\r\n    C.price as close\r\n  FROM\r\n    (\r\n      SELECT block_timestamp,\r\n        MAX(price) AS high,\r\n        MIN(price) AS low\r\n      FROM T\r\n      GROUP BY block_timestamp\r\n    ) MMV,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block DESC\r\n    ) C,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block\r\n    ) O\r\n  WHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\n  ORDER BY MMV.block_timestamp\r\n  LIMIT 100000\r\n),\r\nICHIMOKU AS (\r\n  SELECT block_timestamp,\r\n    (MAX(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $tenkan_periods - 1 PRECEDING AND CURRENT ROW) + \r\n      MIN(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $tenkan_periods - 1 PRECEDING AND CURRENT ROW)) / 2 \r\n      AS \"Tenkan Sen\",\r\n    (MAX(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $kijun_periods - 1 PRECEDING AND CURRENT ROW) + \r\n      MIN(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $kijun_periods - 1 PRECEDING AND CURRENT ROW)) / 2 \r\n      AS \"Kijun Sen\",\r\n    (MAX(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $senkou_b_periods - 1 PRECEDING AND CURRENT ROW) + \r\n      MIN(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $senkou_b_periods - 1 PRECEDING AND CURRENT ROW)) / 2 \r\n      AS \"Senkou Span B\",\r\n    LEAD(close, $kijun_periods) OVER (ORDER BY block_timestamp) AS \"Chikou Span\"\r\n  FROM OHLC\r\n)\r\nSELECT OHLC.block_timestamp, open, high, low, close,\r\n  \"Tenkan Sen\", \"Kijun Sen\", (\"Tenkan Sen\" + \"Kijun Sen\") / 2 AS \"Senkou Span A\", \"Senkou Span B\", \"Chikou Span\"\r\nFROM OHLC, ICHIMOKU\r\nWHERE OHLC.block_timestamp = ICHIMOKU.block_timestamp",
+          "refId": "Ichimoku",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Ichimoku Cloud",
+      "type": "candlestick"
     },
-    "time": {
-        "from": "now-7d",
-        "to": "now"
-    },
-    "timepicker": {
-        "hidden": false,
-        "refresh_intervals": [
-            "5s",
-            "10s",
-            "30s",
-            "1m",
-            "5m",
-            "15m",
-            "30m",
-            "1h",
-            "2h",
-            "1d"
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MACD"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "hidden"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Signal Line"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Signal Line"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "hidden"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillBelowTo",
+                "value": "MACD"
+              }
+            ]
+          }
         ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "id": 24,
+      "options": {
+        "candleStyle": "candles",
+        "colorStrategy": "open-close",
+        "colors": {
+          "down": "red",
+          "up": "green"
+        },
+        "includeAllFields": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mode": "candles+volume"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nOHLC AS (\r\n  SELECT MMV.block_timestamp,\r\n    O.price as open,\r\n    high,\r\n    low,\r\n    C.price as close\r\n  FROM\r\n    (\r\n      SELECT block_timestamp,\r\n        MAX(price) AS high,\r\n        MIN(price) AS low\r\n      FROM T\r\n      GROUP BY block_timestamp\r\n    ) MMV,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block DESC\r\n    ) C,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block\r\n    ) O\r\n  WHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\n  ORDER BY MMV.block_timestamp\r\n  LIMIT 100000\r\n),\r\nMACD AS (\r\n  SELECT block_timestamp,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_fast_periods)) + \r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)\r\n    AS fast_ema,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_slow_periods)) +\r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)\r\n    AS slow_ema\r\n  FROM OHLC\r\n)\r\nSELECT OHLC.block_timestamp, open, high, low, close, \r\n  fast_ema - slow_ema AS \"MACD\",\r\n  (fast_ema - slow_ema - AVG(fast_ema - slow_ema) OVER (ORDER BY OHLC.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)) * \r\n    ($macd_smooth_factor / (1 + $macd_signal_periods)) +\r\n    AVG(fast_ema - slow_ema) OVER (ORDER BY OHLC.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)\r\n  AS \"Signal Line\"\r\nFROM OHLC, MACD\r\nWHERE OHLC.block_timestamp = MACD.block_timestamp\r\n",
+          "refId": "MACD",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Moving Average Convergence / Divergence (MACD)",
+      "type": "candlestick"
     },
-    "timezone": "Asia/Bangkok",
-    "title": "Ethereum",
-    "uid": "ZKqXZzTIk",
-    "version": 1,
-    "weekStart": ""
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Negative Difference"
+            },
+            "properties": [
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH C AS (\r\n  SELECT DISTINCT ON (block_timestamp) block_timestamp, \r\n    block, \r\n    price AS close\r\n  FROM (\r\n    SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n      block,\r\n      price\r\n    FROM ethereum.block_price\r\n  )\r\n  ORDER BY block_timestamp, block DESC\r\n  LIMIT 100000\r\n),\r\nEMA AS (\r\n  SELECT block_timestamp,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_fast_periods)) + \r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_fast_periods PRECEDING AND 1 PRECEDING)\r\n    AS fast_ema,\r\n    (close - AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_slow_periods)) +\r\n      AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $macd_slow_periods PRECEDING AND 1 PRECEDING)\r\n    AS slow_ema\r\n  FROM C\r\n),\r\nMACD AS (\r\n  SELECT C.block_timestamp,\r\n    fast_ema - slow_ema AS macd,\r\n    (fast_ema - slow_ema - AVG(fast_ema - slow_ema) OVER (ORDER BY C.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)) * \r\n      ($macd_smooth_factor / (1 + $macd_signal_periods)) +\r\n      AVG(fast_ema - slow_ema) OVER (ORDER BY C.block_timestamp ROWS BETWEEN $macd_signal_periods PRECEDING AND 1 PRECEDING)\r\n    AS signal_line\r\n  FROM C, EMA\r\n  WHERE C.block_timestamp = EMA.block_timestamp\r\n)\r\nSELECT MACD.block_timestamp, \r\n  pos_diff AS \"Positive Difference\", neg_diff AS \"Negative Difference\"\r\nFROM MACD\r\n  LEFT JOIN\r\n  (\r\n    SELECT block_timestamp,\r\n      macd - signal_line AS pos_diff\r\n    FROM MACD\r\n    WHERE macd - signal_line > 0\r\n  ) POS\r\n  ON MACD.block_timestamp = POS.block_timestamp\r\n  LEFT JOIN\r\n  (\r\n    SELECT block_timestamp,\r\n      macd - signal_line AS neg_diff\r\n    FROM MACD\r\n    WHERE macd - signal_line < 0\r\n  ) NEG\r\n  ON MACD.block_timestamp = NEG.block_timestamp",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "MACD Histogram",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Jaw"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Teeth"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Lips"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 69
+      },
+      "id": 25,
+      "options": {
+        "candleStyle": "candles",
+        "colorStrategy": "open-close",
+        "colors": {
+          "down": "red",
+          "up": "green"
+        },
+        "includeAllFields": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mode": "candles+volume"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH T AS (  \r\n  SELECT date_bin('$bucket_interval', block_timestamp, TIMESTAMP '2001-01-01') AS block_timestamp,\r\n    block,\r\n    price\r\n  FROM ethereum.block_price\r\n),\r\nOHLC AS (\r\n  SELECT MMV.block_timestamp,\r\n    O.price as open,\r\n    high,\r\n    low,\r\n    C.price as close\r\n  FROM\r\n    (\r\n      SELECT block_timestamp,\r\n        MAX(price) AS high,\r\n        MIN(price) AS low\r\n      FROM T\r\n      GROUP BY block_timestamp\r\n    ) MMV,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block DESC\r\n    ) C,\r\n    (\r\n      SELECT DISTINCT ON (block_timestamp) block_timestamp, block, price\r\n      FROM T\r\n      ORDER BY block_timestamp, block\r\n    ) O\r\n  WHERE MMV.block_timestamp = C.block_timestamp AND MMV.block_timestamp = O.block_timestamp\r\n  ORDER BY MMV.block_timestamp\r\n  LIMIT 100000\r\n)\r\nSELECT OHLC.block_timestamp, open, high, low, close,\r\n  AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $jaw_periods + $jaw_offset PRECEDING AND $jaw_offset PRECEDING) AS \"Jaw\",\r\n  AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $teeth_periods + $teeth_offset PRECEDING AND $teeth_offset PRECEDING) AS \"Teeth\",\r\n  AVG(close) OVER (ORDER BY block_timestamp ROWS BETWEEN $lip_periods + $lip_offset PRECEDING AND $lip_offset PRECEDING) AS \"Lips\"\r\nFROM OHLC",
+          "refId": "William Alligator",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Williams Alligator",
+      "type": "candlestick"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 79
+      },
+      "id": 21,
+      "panels": [],
+      "title": "Raw Data",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "gas_limit_wei"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "size"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "block"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 113
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "base_fee_per_gas_gwei"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 181
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "burned_eth"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "block_timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 198
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "validator_withdrawals_eth"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 195
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "price"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 81
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 80
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT *\nFROM\n  ethereum.block_price\nORDER BY block DESC\nLIMIT 5;\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Latest block_price Data",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PD939C64E29633554"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "decimals": 6,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 87
+      },
+      "id": 30,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PD939C64E29633554"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT block_timestamp, avg_gas_price_gwei, tx_fees_eth, volume_eth, active_address\r\nFROM\r\n  ethereum.transactions\r\nORDER BY minute_group_id DESC\r\nLIMIT 5;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Latest transactions Data",
+      "type": "table"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "text": "1h",
+          "value": "1h"
+        },
+        "hide": 0,
+        "label": "Interval",
+        "name": "bucket_interval",
+        "options": [
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "15m",
+            "value": "15m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": true,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          }
+        ],
+        "query": "1m,5m,10m,15m,30m,1h,6h,12h,1d",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "hide": 2,
+        "name": "tenkan_periods",
+        "query": "9",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "kijun_periods",
+        "query": "26",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "senkou_b_periods",
+        "query": "52",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "macd_fast_periods",
+        "query": "12",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "macd_slow_periods",
+        "query": "26",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "macd_signal_periods",
+        "query": "9",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "macd_smooth_factor",
+        "query": "2",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "jaw_periods",
+        "query": "13",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "jaw_offset",
+        "query": "8",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "teeth_periods",
+        "query": "8",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "teeth_offset",
+        "query": "5",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "lip_periods",
+        "query": "5",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "lip_offset",
+        "query": "3",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "2024-01-14T17:00:00.000Z",
+    "to": "2024-05-22T16:59:59.000Z"
+  },
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "Asia/Bangkok",
+  "title": "Ethereum",
+  "uid": "ZKqXZzTIk",
+  "version": 1,
+  "weekStart": ""
 }

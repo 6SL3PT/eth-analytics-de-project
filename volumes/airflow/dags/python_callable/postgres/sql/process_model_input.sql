@@ -69,6 +69,6 @@ INSERT INTO ethereum.model_input(
     ("Tenkan Sen" + "Kijun Sen") / 2 - "Senkou Span B" AS "senkou_span_sub",
     "Lips" - "Jaw" AS "alligator_sub"
 FROM TX, ICHIMOKU, ALLIGATOR
-WHERE TX.block_timestamp::date = '2024-02-22' --now()::date - 1
+WHERE TX.block_timestamp::date = now()::date - 1
     AND TX.block_timestamp = ICHIMOKU.block_timestamp
     AND TX.block_timestamp = ALLIGATOR.block_timestamp

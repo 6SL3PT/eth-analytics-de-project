@@ -3,11 +3,11 @@ import os
 import logging
 
 from datetime import date, timedelta
-from google.api_core.exceptions import Forbidden
-from python_callable.bigquery.big_query_util import BigQuery, QueryError
 
 
 def run_fetch_transaction():
+    from google.api_core.exceptions import Forbidden
+    from python_callable.bigquery.big_query_util import BigQuery, QueryError
 
     bq = BigQuery(wait_time=300)
 
